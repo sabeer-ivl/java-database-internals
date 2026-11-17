@@ -1,6 +1,6 @@
 # ORM Fundamentals
 
-<badge>Planned</badge>
+**Status: Planned**
 
 This track will explain the ideas behind Object-Relational Mapping before introducing Hibernate-specific behavior.
 

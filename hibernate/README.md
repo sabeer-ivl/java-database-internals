@@ -1,6 +1,6 @@
 # Hibernate
 
-<badge>Planned</badge>
+**Status: Planned**
 
 This track will apply ORM concepts using Hibernate and inspect the SQL it generates.
 

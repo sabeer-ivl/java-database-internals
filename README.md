@@ -1,17 +1,27 @@
 # Java Database Internals
 
-A practical, code-first path through SQL, JDBC, ORM, Hibernate, and Spring Data JPA.
+A practical, code-first learning lab for understanding how Java applications interact with relational databases.
 
-The goal is to understand what happens between Java code and the database—not just memorize annotations or repository methods.
+This repository focuses on **small runnable examples**, concise notes, and exercises—not long, duplicated tutorials. The accompanying articles explain the concepts; this repository contains the code you can run and inspect.
 
-## Learning path
+## Learning tracks
 
-1. **JDBC** — connections, statements, result sets, transactions, batching, and resource management.
-2. **ORM fundamentals** — object-relational mapping, persistence context, and entity lifecycle.
-3. **Hibernate** — dirty checking, flushing, relationships, ownership, fetching, caching, and query behavior.
-4. **Spring Data JPA** — repository abstractions, transaction boundaries, generated SQL, and performance.
+| Track | What you'll explore | Status |
+|---|---|---|
+| [JDBC](./jdbc/README.md) | Connections, SQL execution, result mapping, CRUD, transactions, batching, and application structure | In progress |
+| [SQL & Databases](./sql/README.md) | SQL queries, joins, constraints, relationships, and schema design | In progress |
+| [ORM Fundamentals](./orm/README.md) | Object-relational mapping, persistence context, and entity lifecycle | Planned |
+| [Hibernate](./hibernate/README.md) | Entity mapping, relationships, fetching, dirty checking, and generated SQL | Planned |
 
-Each topic will include a small runnable example and notes explaining the behavior.
+## How to use this repository
+
+1. Choose a learning track.
+2. Read its short module notes.
+3. Run the example locally.
+4. Inspect the SQL and output.
+5. Complete the small exercise before moving on.
+
+Examples will build around a shared booking domain so we can compare direct JDBC code with ORM-based persistence later.
 
 ## Requirements
 
@@ -19,7 +29,7 @@ Each topic will include a small runnable example and notes explaining the behavi
 - Maven 3.9+
 - Docker Engine and Docker Compose
 
-## Start MariaDB
+## Start the database
 
 Copy the example environment file:
 
@@ -33,20 +43,20 @@ On Windows PowerShell:
 Copy-Item .env.example .env
 ```
 
-Review the credentials in `.env`, then start the database:
+Review the local credentials in `.env`, then start MariaDB:
 
 ```bash
 docker compose up -d
 docker compose ps
 ```
 
-MariaDB is exposed on `localhost:3306`. The initialization script creates the `bookings` table and inserts sample rows when the database volume is first initialized.
+MariaDB is exposed on `localhost:3306`. The initialization script creates the sample `bookings` table and inserts a few rows when the database volume is first initialized.
 
-> The initialization script runs only when MariaDB creates a fresh data directory. If you change that script after the first startup, use `docker compose down -v` to remove the lab database volume and initialize it again. This deletes the container's database data.
+> The initialization script runs only when MariaDB creates a fresh data directory. If you change it after the first startup, `docker compose down -v` removes the lab database volume so it can be initialized again. This deletes the data stored in that volume.
 
-## Run the JDBC example
+## Run the current JDBC example
 
-Set the connection variables in the terminal where you run Maven.
+Set the connection variables in the same terminal where you run Maven.
 
 **macOS / Linux**
 
@@ -66,7 +76,7 @@ $env:DB_PASSWORD = "lab_password"
 mvn compile exec:java
 ```
 
-The credentials above are for this local learning environment only. Do not reuse them in a deployed application.
+These credentials are for the local learning environment only. Do not reuse them in a deployed application.
 
 ## Stop the database
 
@@ -80,21 +90,15 @@ To also delete the persisted lab data:
 docker compose down -v
 ```
 
-## Project structure
+## Repository principles
 
-```text
-.
-├── database/
-│   └── init/
-│       └──  V1__create_bookings.sql
-├── src/
-│   └── main/
-│       └── java/com/sabeer/database/jdbc/
-│           └── Main.java
-├── .env.example
-├── .gitignore
-├── compose.yaml
-└── pom.xml
-```
+- **Runnable over theoretical:** important concepts should have executable examples.
+- **Show the database behavior:** inspect SQL, returned rows, and transaction effects.
+- **One concept at a time:** keep examples small and focused.
+- **Avoid premature abstraction:** introduce patterns such as DAO when they solve a problem we have encountered.
+- **Keep the domain consistent:** reuse the booking schema where it makes comparisons easier.
+- **No duplicated tutorials:** detailed explanations belong in the articles; the repository stays a practical companion.
 
-The repository will grow as we work through each topic. We will add abstractions only when an example needs them.
+## Articles
+
+Articles will be linked from their corresponding track or module pages as they are published.

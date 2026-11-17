@@ -1,5 +1,7 @@
 package com.sabeer.database.jdbc;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,11 +11,18 @@ import java.sql.Statement;
 public class Main {
 
     public static void main(String[] args) {
-        String url = requiredEnv("DB_URL");
-        String username = requiredEnv("DB_USERNAME");
-        String password = requiredEnv("DB_PASSWORD");
+        Dotenv dotenv = Dotenv.load();
+        String database = dotenv.get("MARIADB_DATABASE");
+        String username = dotenv.get("MARIADB_USER");
+        String password = dotenv.get("MARIADB_PASSWORD");
+
+        String url = "jdbc:mariadb://localhost:4000/" + database;
 
         String sql = "SELECT id, customer_name, amount FROM bookings";
+
+        System.out.println("DB URL: " + url);
+        System.out.println("DB Username: " + username);
+        System.out.println("DB Password loaded: " + password);
 
         try (Connection connection =
                      DriverManager.getConnection(url, username, password);

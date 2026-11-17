@@ -20,10 +20,6 @@ public class Main {
 
         String sql = "SELECT id, customer_name, amount FROM bookings";
 
-        System.out.println("DB URL: " + url);
-        System.out.println("DB Username: " + username);
-        System.out.println("DB Password loaded: " + password);
-
         try (Connection connection =
                      DriverManager.getConnection(url, username, password);
              Statement statement = connection.createStatement();

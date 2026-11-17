@@ -12,7 +12,7 @@
 
 ## Run
 
-Start MariaDB using the [project setup](../../../../README.md), then run the current example:
+Start MariaDB using the [project setup](../../../README.md), then run the current example:
 
 ```bash
 mvn compile exec:java
